@@ -42,7 +42,7 @@ namespace laba1
         {
             x = 0;
             var rand = new Random();
-            x = rand.NextDouble() + rand.Next();
+            x = rand.NextDouble() + rand.Next(100);
         }
         static void read() {
             string str = "";
@@ -134,7 +134,7 @@ namespace laba1
             Console.ForegroundColor = ConsoleColor.Cyan;
             long k = 0;
             foreach (var i in sum) {
-                Console.Write("[" + i.ToString()+"] ");
+                Console.Write("[" + Convert.ToDouble(i).ToString("n10")+"] ");
                 k++;
                 if (k == 5)
                 {
