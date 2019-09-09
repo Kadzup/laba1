@@ -87,7 +87,7 @@ namespace laba1
                     Console.WriteLine("~ An invalid argument\n~ Try: True or False\n~ Now will calculate with No Reversed x");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                runFunc(rev);
+                calcTaylorSeries(rev);
             }
             else if (arg == "5" || arg == "exit" || arg == "Exit" || arg == "e" || arg == "E")
             {

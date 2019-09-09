@@ -11,17 +11,7 @@ namespace laba1
         static ArrayList sum = new ArrayList();
         static int step = 0;
         static long n = 0;
-        /*! 
-         This function allows us to calculate the function
-         of the number e by expanding it into a Taylor series.
-         sum = from i=0 to n = inf calculate sum of (x^n)/(n!)
-            Function: 
-                * Name = runFunc, Type = void
-            Parameters:
-                * Name = isRevers, Type = boolean, Default = False
-            If isRevers is True than we calculate for e^(-x)
-            If isRevers if False than we calculate for e^x
-        */
+        
         static double factorial(double number)
         {
             if (number == 1 || number == 0)
@@ -29,7 +19,20 @@ namespace laba1
             else
                 return number * factorial(number - 1);
         }
-        static void runFunc(bool isRevers = false) {
+        /* 
+         This function allows us to calculate the function
+         of the number e by expanding it into a Taylor series.
+         Sum = from i=0 to (n->inf) calculate sum of (x^n)/(n!)
+            
+         Function: 
+            * Name = calcTaylorSeries, Type = void
+         Parameters:
+            * Name = isRevers, Type = boolean, Default = False
+            
+         If isRevers is True than we calculate for e^(-x)
+         If isRevers if False than we calculate for e^x
+        */
+        static void calcTaylorSeries(bool isRevers = false) {
             double s = 0;
             Console.Write("Enter n: ");
             n = Convert.ToInt64(Console.ReadLine());
