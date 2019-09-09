@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Collections;
 
-/*
+/*TODO
   Обчислити x e− , 0 x , розклавши функцію
   у ряд Тейлора і використовуючи формулу x 
   x ee / 1= − , де x e також обчислюється 
@@ -28,21 +28,122 @@ namespace laba1
 {
     public static partial class Taylor
     {
-        public static double x; 
-        public static bool running = false;
+        public static double x;
+        public static bool isRunning = false;
         public static string title = "Taylor series";
+        public static string author = "Dima Stefurak";
+        public static string group = "312";
+
+        /*!
+            This part of code can be used as
+            navigation menu in console mode.
+            
+            Functions:
+                * Name = init, Type = void,
+                  Describtion: function init main statements and console param.
+                * Name = menu, Type = void,
+                  Describtion: function call main menu elements
+                * Name = input, Type = void,
+                  Describtion: function allows us to read custom console commands.
+                  All commands descibed in this method.
+                * Name = runProg, Type = void,
+                  Describtion: function allows us to run our console program.
+                  It's calling menu() function and set global var runnig to True statement.
+            
+            Variables:
+                * Name = isRunnig, Type = boolean, Default = faLse;
+                * Name = title, Type = string, Default = "";
+                * Name = author, Type = string, Default = "";
+                
+            Console commands:
+                * Name = Menu, Commands: m, M, menu, Menu;
+                * Name = Clear, Commands: clear, Clear, clr, cls;
+                * Name = Exit, Commands: e, E, exit, Exit;
+                * Name = Help, Commands: /h, /H, /help, /Help.
+            
+            Wornings:
+                If you want to add your own commands,
+                just change them in input() method.
+                
+                To add your commands, or change iteration in menu list,
+                go to menu() method, and find output line with allowed commands.
+
+            Got a questions:
+                Instagram: @kadzup
+                Email: dimonstefurak@gmail.com
+                GitHub: kadzup
+        */
+        static void init() {
+            x = 0;
+            sum.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Title = title + ". " + author + " #" + group;
+            Console.Clear();
+        }
+        public static bool isHelp(string arg)
+        {
+            string[] words = arg.Split();
+            if (words[0] == "/help" || words[0] == "/Help" || words[0] == "/H" || words[0] == "/h")
+                return true;
+            return false;
+        }
+        //TODO create help dictionary
+        public static void callHelp(string arg)
+        {
+            string[] helpArg;
+            if (arg == "/help" || arg == "/Help" || arg == "/H" || arg == "/h")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Only help");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                helpArg = arg.Split();
+                if (helpArg[1] == "menu" || helpArg[1] == "Menu" || helpArg[1] == "m" || helpArg[1] == "M")
+                {
+                    Console.WriteLine("Menu help");
+                }
+                else if (helpArg[1] == "clear" || helpArg[1] == "Clear" || helpArg[1] == "m" || helpArg[1] == "M")
+                {
+                    Console.WriteLine("Clear help");
+                }
+                else if (helpArg[1] == "exit" || helpArg[1] == "Exit" || helpArg[1] == "e" || helpArg[1] == "E")
+                {
+                    Console.WriteLine("Exit help");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nError, can't find {helpArg[1]} in Help dictionary\nMaybe you should try:\n" +
+                        "/help Menu\n" +
+                        "/help Clear\n" +
+                        "/help Exit\n\n");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
         static void menu() {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Main menu:");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("1) Random\n2) Input\n3) Output\n4) Start\n5) Exit\n");
+            Console.WriteLine(  "1) Random\n"+
+                                "2) Input\n"+
+                                "3) Output\n"+
+                                "4) Start\n"+
+                                "5) Exit\n");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nAlso you can type /help, in console mode\n\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
         static void random()
         {
             x = 0;
             var rand = new Random();
-            x = rand.NextDouble() + rand.Next(100);
+            x = rand.NextDouble() + rand.Next(50);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"X: {x}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
         static void read() {
             string str = "";
@@ -55,8 +156,11 @@ namespace laba1
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(">>> ");
             arg = Console.ReadLine();
-
-            if (arg == "1" || arg == "random" || arg == "rand" || arg == "r" || arg == "R")
+            if (isHelp(arg))
+            {
+                callHelp(arg);
+            }
+            else if (arg == "1" || arg == "random" || arg == "rand" || arg == "r" || arg == "R")
             {
                 random();
             }
@@ -82,7 +186,8 @@ namespace laba1
                 {
                     rev = false;
                 }
-                else {
+                else
+                {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("~ An invalid argument\n~ Try: True or False\n~ Now will calculate with No Reversed x");
                     Console.ForegroundColor = ConsoleColor.White;
@@ -91,7 +196,7 @@ namespace laba1
             }
             else if (arg == "5" || arg == "exit" || arg == "Exit" || arg == "e" || arg == "E")
             {
-                running = false;
+                isRunning = false;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Thank you, see you again next time!\n\nCreated by Dima Stefurak, 2019");
@@ -114,17 +219,24 @@ namespace laba1
                 Console.WriteLine($"~ Sum results is reseted");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            else {
+            else if (arg == "help" || arg == "Help" || arg == "h" || arg == "H" || arg == "/help" || arg == "/Help" || arg == "/H" || arg == "/h") {
+                if (arg == "help" || arg == "Help" || arg == "h" || arg == "H") {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"~ Incorrect argument [{arg}]\n~ Try: /h, /H, /help, /Help");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            else
+            {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"~ Invalid argument [{arg}]\n~ Try: m, M, menu, Menu");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-
         static void runProg() {
-            running = true;
+            isRunning = true;
             menu();
-            while (running) {
+            while (isRunning) {
                 input();
             }
         }
@@ -149,7 +261,7 @@ namespace laba1
         }
         static void Main(string[] args)
         {
-            Console.Title = title;
+            init();
             runProg();
         }
     }

@@ -11,7 +11,7 @@ namespace laba1
         static ArrayList sum = new ArrayList();
         static int step = 0;
         static long n = 0;
-        
+
         static double factorial(double number)
         {
             if (number == 1 || number == 0)
@@ -19,7 +19,7 @@ namespace laba1
             else
                 return number * factorial(number - 1);
         }
-        /* 
+        /*!
          This function allows us to calculate the function
          of the number e by expanding it into a Taylor series.
          Sum = from i=0 to (n->inf) calculate sum of (x^n)/(n!)
@@ -32,10 +32,24 @@ namespace laba1
          If isRevers is True than we calculate for e^(-x)
          If isRevers if False than we calculate for e^x
         */
-        static void calcTaylorSeries(bool isRevers = false) {
+        //TODO Work on difference calculation in function calcTaylorSeries
+        static void calcTaylorSeries(bool isRevers = false)
+        {
+            string input = "";
             double s = 0;
+
             Console.Write("Enter n: ");
-            n = Convert.ToInt64(Console.ReadLine());
+            input = Console.ReadLine();
+            if (long.TryParse(input, out n))
+                n = Convert.ToInt64(input);
+            else
+            {
+                n = 100;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("~ An invalid argument\n~ Try: integer number\n~ Now will calculate with n = 100");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
             if (!isRevers)
             {
                 for (long i = 0; i < n; i++)
@@ -43,7 +57,8 @@ namespace laba1
                     s += Math.Pow(x, i) / factorial(i);
                 }
             }
-            else {
+            else
+            {
                 for (long i = 0; i < n; i++)
                 {
                     if (i % 2 == 0)
@@ -53,10 +68,11 @@ namespace laba1
                 }
             }
             sum.Add(s);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"\nSum: {s.ToString("n10")} \nReversed: {isRevers}\n");
-            if (sum.Count > 1) {
-                Console.WriteLine($"Difference: |{Convert.ToDouble(Math.Abs(Convert.ToDouble(sum[step-1])-Convert.ToInt64(sum[step-1]))).ToString("n10")} - {Math.Abs(Convert.ToDouble(Convert.ToDouble(sum[step])- Convert.ToInt64(sum[step]))).ToString("n10")}| = {Math.Abs((Convert.ToDouble(sum[step-1])- Convert.ToInt64(sum[step-1])) -(Convert.ToDouble(sum[step])- Convert.ToInt64(sum[step]))).ToString("n10")}\n");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"\nSum: {s.ToString("n10")} \nReversed: {isRevers}\nN: {n}\nX: {x}");
+            if (sum.Count > 1)
+            {
+                Console.WriteLine($"Difference: |{Convert.ToDouble(Math.Abs(Convert.ToDouble(sum[step - 1]) - Convert.ToInt64(sum[step - 1]))).ToString("n10")} - {Math.Abs(Convert.ToDouble(Convert.ToDouble(sum[step]) - Convert.ToInt64(sum[step]))).ToString("n10")}| = {Math.Abs((Convert.ToDouble(sum[step - 1]) - Convert.ToInt64(sum[step - 1])) - (Convert.ToDouble(sum[step]) - Convert.ToInt64(sum[step]))).ToString("n10")}\n");
             }
             Console.ForegroundColor = ConsoleColor.White;
             step++;
