@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Collections;
 
-/*TODO
+/*
   Обчислити x e− , 0 x , розклавши функцію
   у ряд Тейлора і використовуючи формулу x 
   x ee / 1= − , де x e також обчислюється 
@@ -40,18 +40,18 @@ namespace laba1
             
             Functions:
                 * Name = init, Type = void,
-                  Describtion: function init main statements and console param.
+                  Description: function init main statements and console param.
                 * Name = menu, Type = void,
-                  Describtion: function call main menu elements
+                  Description: function call main menu elements
                 * Name = input, Type = void,
-                  Describtion: function allows us to read custom console commands.
-                  All commands descibed in this method.
+                  Description: function allows us to read custom console commands.
+                  All commands described in this method.
                 * Name = runProg, Type = void,
-                  Describtion: function allows us to run our console program.
-                  It's calling menu() function and set global var runnig to True statement.
+                  Description: function allows us to run our console program.
+                  It's calling menu() function and set global var isRunning to True statement.
             
             Variables:
-                * Name = isRunnig, Type = boolean, Default = faLse;
+                * Name = isRunning, Type = boolean, Default = faLse;
                 * Name = title, Type = string, Default = "";
                 * Name = author, Type = string, Default = "";
                 
@@ -61,7 +61,7 @@ namespace laba1
                 * Name = Exit, Commands: e, E, exit, Exit;
                 * Name = Help, Commands: /h, /H, /help, /Help.
             
-            Wornings:
+            Warnings:
                 If you want to add your own commands,
                 just change them in input() method.
                 
@@ -199,7 +199,7 @@ namespace laba1
                 isRunning = false;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Thank you, see you again next time!\n\nCreated by Dima Stefurak, 2019");
+                Console.WriteLine($"Thank you, see you again next time!\n\nCreated by {author}, 2019");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else if (arg == "menu" || arg == "Menu" || arg == "m" || arg == "M")
