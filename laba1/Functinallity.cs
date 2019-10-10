@@ -19,6 +19,13 @@ namespace laba1
             else
                 return number * factorial(number - 1);
         }
+        static double factorialF(float number)
+        {
+            if (number == 1 || number == 0)
+                return 1;
+            else
+                return number * factorial(number - 1);
+        }
         /*!
          This function allows us to calculate the function
          of the number e by expanding it into a Taylor series.
@@ -37,6 +44,7 @@ namespace laba1
         {
             string input = "";
             double s = 0;
+            float s1 = 0;
 
             Console.Write("Enter n: ");
             input = Console.ReadLine();
@@ -55,6 +63,7 @@ namespace laba1
                 for (long i = 0; i < n; i++)
                 {
                     s += Math.Pow(x, i) / factorial(i);
+                    s1 +=(float)(Math.Pow(xF, i) / factorialF(i));
                 }
             }
             else
@@ -62,18 +71,21 @@ namespace laba1
                 for (long i = 0; i < n; i++)
                 {
                     if (i % 2 == 0)
+                    {
                         s += (1 / factorial(i)) * Math.Pow(x, i);
+                        s1 += (float)((1 / factorialF(i)) * Math.Pow(xF, i));
+                    }
                     else
+                    {
                         s += (-1 / factorial(i)) * Math.Pow(x, i);
+                        s1 += (float)((-1 / factorialF(i)) * Math.Pow(xF, i));
+                    }
                 }
             }
             sum.Add(s);
+            sum.Add(s1);
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"\nSum: {s.ToString("n10")} \nReversed: {isRevers}\nN: {n}\nX: {x}");
-            if (sum.Count > 1)
-            {
-                Console.WriteLine($"Difference: |{Convert.ToDouble(Math.Abs(Convert.ToDouble(sum[step - 1]) - Convert.ToInt64(sum[step - 1]))).ToString("n10")} - {Math.Abs(Convert.ToDouble(Convert.ToDouble(sum[step]) - Convert.ToInt64(sum[step]))).ToString("n10")}| = {Math.Abs((Convert.ToDouble(sum[step - 1]) - Convert.ToInt64(sum[step - 1])) - (Convert.ToDouble(sum[step]) - Convert.ToInt64(sum[step]))).ToString("n10")}\n");
-            }
+            Console.WriteLine($"\nSum Double: {s.ToString("n10")}\nSum Float: {s1.ToString("n10")} \nReversed: {isRevers}\nN: {n}\nX: {x}");
             Console.ForegroundColor = ConsoleColor.White;
             step++;
         }

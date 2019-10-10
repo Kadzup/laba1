@@ -29,6 +29,7 @@ namespace laba1
     public static partial class Taylor
     {
         public static double x;
+        public static float xF;
         public static bool isRunning = false;
         public static string title = "Taylor series";
         public static string author = "Dima Stefurak";
@@ -75,6 +76,7 @@ namespace laba1
         */
         static void init() {
             x = 0;
+            xF = 0;
             sum.Clear();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = title + ". " + author + " #" + group;
@@ -141,6 +143,7 @@ namespace laba1
             x = 0;
             var rand = new Random();
             x = rand.NextDouble() + rand.Next(50);
+            xF = (float)x;
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"X: {x}");
             Console.ForegroundColor = ConsoleColor.White;
@@ -150,6 +153,7 @@ namespace laba1
             Console.Write("Enter x: ");
             str = Console.ReadLine();
             x = Convert.ToDouble(str);
+            xF = (float)x;
         }
         static void input() {
             string arg = "";
